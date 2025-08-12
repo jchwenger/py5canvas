@@ -438,6 +438,25 @@ class Canvas:
             self.font = font
             self.ctx.select_font_face(self.font)
 
+    def text_style(self, style):
+        """Specify the style (normal, italic, bold, bolditalic) to use for text
+        rendering
+        Arguments:
+
+        - ~style~ (string): the name of a style ("normal", "italic", "bold",
+        "bolditalic")
+        """
+        if style == "normal":
+            self.ctx.select_font_face(self.font, cairo.FontSlant.NORMAL)
+        elif style == "italic":
+            self.ctx.select_font_face(self.font, cairo.FontSlant.ITALIC)
+        elif style == "bold":
+            self.ctx.select_font_face(self.font, cairo.FontSlant.NORMAL, cairo.FontWeight.BOLD)
+        elif style == "bolditalic":
+            self.ctx.select_font_face(self.font, cairo.FontSlant.ITALIC, cairo.FontWeight.BOLD)
+        else:
+            print(f"font style `{style}` not recognised (choose from: normal, italic, bold, bolditalic)")
+
     def push_matrix(self):
         """
         Save the current transformation
