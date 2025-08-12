@@ -162,8 +162,10 @@ class Canvas:
         else:
             print("Not creating recording context")
 
-        self.ctx.select_font_face("sans-serif")
-        self.ctx.set_font_size(16)
+        self.font = "sans-serif"
+        self.ctx.select_font_face(self.font)
+        self.font_size = 16
+        self.ctx.set_font_size(self.font_size)
         self.line_cap('round')
         self.text_halign = 'left'
         self.text_valign = 'bottom'
@@ -420,7 +422,8 @@ class Canvas:
 
         - ~size~ (int): the text size
         """
-        self.ctx.set_font_size(size)
+        self.font_size = size
+        self.ctx.set_font_size(self.font_size)
 
     def text_font(self, font):
         """Specify the font to use for text rendering
@@ -429,9 +432,11 @@ class Canvas:
         - ~font~ (string): the name of a system font
         """
         if '.ttf' in font:
-            self.ctx.set_font_face(create_cairo_font_face_for_file(font))
+            self.font = create_cairo_font_face_for_file(font)
+            self.ctx.set_font_face(self.font)
         else:
-            self.ctx.select_font_face(font)
+            self.font = font
+            self.ctx.select_font_face(self.font)
 
     def push_matrix(self):
         """
